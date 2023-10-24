@@ -42,7 +42,7 @@ alchemy.ws.on(
         const swapData: SwapData = {
           trader: txReceipt!.from,
           txHash: txReceipt!.transactionHash,
-          tokenOut: transfers[9].address,
+          tokenOut: transfers[0].address,
           tokenIn: transfers[transfers.length - 1].address,
           tokenOutAmount: coder.decode(["uint256"], transfers[0].data).toString(),
           tokenInAmount: coder.decode(["uint256"], transfers[transfers.length - 1].data).toString(),
