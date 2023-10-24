@@ -10,7 +10,8 @@ const alchemy = new Alchemy({
 })
 const transferHash: string = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
 const coder: ethers.AbiCoder = new ethers.AbiCoder()
-const walletAddress: string = "0x11048698268aBF043F7A4617E8E72A55e74281CA"
+const walletAddress: string = "0x120eC74C5C482944C2C6074ddDC028A4BFbd72F2"
+var counter = 0
 
 alchemy.ws.on(
   {
@@ -20,6 +21,7 @@ alchemy.ws.on(
         from: walletAddress,
       },
     ],
+    hashesOnly: true,
   },
   (tx) => {
     alchemy.core
@@ -40,15 +42,18 @@ alchemy.ws.on(
         const swapData: SwapData = {
           trader: txReceipt!.from,
           txHash: txReceipt!.transactionHash,
-          tokenOut: transfers[0].address,
+          tokenOut: transfers[9].address,
           tokenIn: transfers[transfers.length - 1].address,
           tokenOutAmount: coder.decode(["uint256"], transfers[0].data).toString(),
           tokenInAmount: coder.decode(["uint256"], transfers[transfers.length - 1].data).toString(),
         }
         console.log(swapData)
+        console.log(counter++)
       })
       .catch((error: Error) => {
         console.log(error.message)
       })
   }
 )
+
+console.log("started")
